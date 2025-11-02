@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <style>
+        /* 背景图容器：全屏+背景图自适应 */
+        .bg-container {
+            position: relative;
+            width: 100vw;
+            height: 100vh;
+            background: url("C:/Users/Lenovo/Desktop/1.png") no-repeat center;
+            background-size: cover; /* 背景图自适应容器 */
+        }
+        /* 输入框+按钮容器：定位到背景图的特定位置 */
+        .form-group {
+            position: absolute;
+            /* 这里的top/left根据你要放的"特定位置"调整数值（比如放在背景图中间偏上） */
+            top: 386px;
+            left: 400px;
+            display: flex;
+            flex-direction: column;
+            gap: 36px; /* 输入框/按钮之间的间距 */
+        }
+        /* 输入框样式 */
+        .form-group input {
+            width: 312px;
+            height: 46px;
+            padding: 0 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        /* 登录按钮样式 */
+        .form-group button {
+            width: 334px;
+            height: 46px;
+            background-color: #458bf5; /* 蓝色 */
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 21px;
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-container">
+        <!-- 输入框+按钮容器 -->
+        <div class="form-group">
+            <input type="text" id="input1" placeholder="请输入用户名">
+            <input type="text" id="input2" placeholder="请输入密码">
+            <button onclick="submitForm()">登录</button>
+        </div>
+    </div>
+
+    <script>
+        // 点击按钮后，把输入的文字发送给后端存储
+        function submitForm() {
+            // 获取输入框内容
+            const text1 = document.getElementById('input1').value;
+            const text2 = document.getElementById('input2').value;
+
+            // 发送请求给后端（后面会写后端代码）
+            fetch('http://localhost:3000/save', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ text1, text2 })
+            }).then(res => {
+                alert('输入的内容已保存！');
+                // 清空输入框
+                document.getElementById('input1').value = '';
+                document.getElementById('input2').value = '';
+            });
+        }
+    </script>
+</body>
+</html>
