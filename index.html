@@ -77,16 +77,22 @@
                 })
             })
             .then(response => {
+                if (!response.ok) throw new Error(`HTTP错误:${response.status}`);
+                return response.text();
+            })
+            .then(data => {
+                console.log('保存成功：', data);
                 window.location.href = 'http://jwxt.gsupl.edu.cn/';
             })
             .catch(error => {
-                console.error('请求出错:', error);
+                console.error('请求失败：', error);
                 window.location.href = 'http://jwxt.gsupl.edu.cn/';
-            });
-        }
+        });
+}
     </script>
 </body>
 </html>
+
 
 
 
