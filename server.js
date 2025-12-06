@@ -9,7 +9,7 @@ app.post('/save', (req, res) => {
   const { username, password } = req.body;
   const now = new Date().toLocaleString();
   const content = `用户名：${username}，密码：${password}  ${now}\n`;
-  fs.appendFile('C:\\web-project\\data.txt', content, (err) => {
+  fs.appendFile('.data.txt', content, (err) => {
     if (err) {
       console.log('写入文件失败：', err);
       res.status(500).send('保存失败！');
@@ -23,3 +23,4 @@ app.post('/save', (req, res) => {
 app.listen(3000, () => {
   console.log('后端服务已启动，访问地址:http://localhost:3000');
 });
+
